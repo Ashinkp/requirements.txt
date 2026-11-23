@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_CREDENTIALS_ID = 'docker-cred'
-        DOCKER_IMAGE          = 'ashin2002/maker'
+        DOCKER_IMAGE          = 'ashin2002/requirements.txt'
         SONAR_SERVER_NAME     = 'sonarqube-env'
         SONAR_SCANNER_TOOL    = 'sonarqube-scanner'
         GIT_CREDENTIALS_ID    = 'github-cred'
@@ -23,8 +23,8 @@ pipeline {
                     def scannerHome = tool "${SONAR_SCANNER_TOOL}"
                     withSonarQubeEnv("${SONAR_SERVER_NAME}") {
                         sh "${scannerHome}/bin/sonar-scanner \
-                            -Dsonar.projectKey=maker-key \
-                            -Dsonar.projectName='maker-project' \
+                            -Dsonar.projectKey=requirements.txt-key \
+                            -Dsonar.projectName='requirements.txt-project' \
                             -Dsonar.sources=."
                     }
                 }
@@ -54,7 +54,7 @@ pipeline {
                     sh """
                         git config user.name "Ashinkp"
                         git config user.email "ashinkp33@gmail.com"
-                        git remote set-url origin https://\${GH_USER}:\${GH_TOKEN}@github.com/Ashinkp/maker-project.git
+                        git remote set-url origin https://\${GH_USER}:\${GH_TOKEN}@github.com/Ashinkp/requirements.txt.git
 
                         git fetch origin ${MANIFEST_BRANCH}
                         git checkout -B ${MANIFEST_BRANCH} origin/${MANIFEST_BRANCH}
